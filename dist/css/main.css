@@ -1,0 +1,23 @@
+body p {
+  color: #333a96; }
+
+body span {
+  color: #0f0; }
+
+body h1 {
+  color: #743; }
+
+body ::-webkit-input-placeholder {
+  color: gray; }
+
+body ::-moz-placeholder {
+  color: gray; }
+
+body :-ms-input-placeholder {
+  color: gray; }
+
+body ::-ms-input-placeholder {
+  color: gray; }
+
+body ::placeholder {
+  color: gray; }

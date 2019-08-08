@@ -1,0 +1,12 @@
+mkdir cursor-gulp // создать папку
+cd cursor-gulp // перейти в директорию
+npm init -y // инициировать проект
+npm install -g gulp gulp-cli // установка gulp
+gulp -v // проверить установлен ли галп
+npm install -D gulp // установка gulp локально (-D === --save-dev)
+touch gulpfile.js // Создать галпфайл (без него галп не работает)
+gulp // запуск галпа
+gulp html // задача переноса html для галпа
+npm install node-sass gulp-sass -D // устанваливаем gulp-sass
+npm install -D gulp-uglify
+npm install -D gulp-concat
