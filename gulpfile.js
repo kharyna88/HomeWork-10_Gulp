@@ -14,7 +14,6 @@ sass.compiler = require('node-sass');
 const concat = require("gulp-concat");
 const babel = require('gulp-babel');
 const browserSync = require('browser-sync').create();
-const zip = require('gulp-zip');
 const autoprefixer = require('gulp-autoprefixer');
 const imagemin = require('gulp-imagemin');
 const imageminPngquant = require('imagemin-pngquant');
@@ -47,7 +46,7 @@ gulp.task("js", () => {
         .pipe(browserSync.stream());
 });
 
-gulp.task("browser-init", (done) => {
+gulp.task("browser-init", () => {
     return browserSync.init({
         server: "./dist"
     });
@@ -61,13 +60,6 @@ gulp.task("watch", () => {
 
 });
 
-gulp.task("deploy", (done) => {
-    return gulp.src("./dist/**/*")
-        .pipe(zip('deploy.zip'))
-        .pipe(gulp.dest("./"))
-        .pipe(done());
-});
-
 gulp.task("images", () => {
     return gulp.src("./src/img/**/*")
         .pipe(cache(
@@ -76,7 +68,6 @@ gulp.task("images", () => {
             ])
         ))
         .pipe(gulp.dest("./dist/img"));
-
 });
 
 gulp.task("clean", () => {
