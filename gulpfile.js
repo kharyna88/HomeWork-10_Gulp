@@ -21,7 +21,7 @@ const imageminPngquant = require('imagemin-pngquant');
 const cache = require('gulp-cache');
 var clean = require('gulp-clean');
 
-gulp.task("html", (done) => {
+gulp.task("html", () => {
     // загрузить файл в память
     // выгрузить его в другую директорию
     return gulp.src("./src/*.html")
@@ -29,7 +29,7 @@ gulp.task("html", (done) => {
         .pipe(browserSync.stream());
 });
 
-gulp.task("scss", (done) => {
+gulp.task("scss", () => {
     return gulp.src("./src/scss/**/*.scss")
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
@@ -37,7 +37,7 @@ gulp.task("scss", (done) => {
         .pipe(browserSync.stream());
 });
 
-gulp.task("js", (done) => {
+gulp.task("js", () => {
     return gulp.src("./src/js/**/*.js")
         .pipe(babel({
             presets: ['@babel/env']
@@ -53,12 +53,12 @@ gulp.task("browser-init", (done) => {
     });
 })
 
-gulp.task("watch", (done) => {
-    gulp.watch("./src/*.html", gulp.series("html"));
-    gulp.watch("./src/scss/**/*.scss", gulp.series("scss"));
-    gulp.watch("./src/js/**/*.js", gulp.series("js"));
-    gulp.watch("./src/img/**/*", gulp.series("images"));
-    return;
+gulp.task("watch", () => {
+    return gulp.watch("./src/*.html", gulp.series("html"))
+        .watch("./src/scss/**/*.scss", gulp.series("scss"))
+        .watch("./src/js/**/*.js", gulp.series("js"))
+        .watch("./src/img/**/*", gulp.series("images"));
+
 });
 
 gulp.task("deploy", (done) => {
@@ -68,7 +68,7 @@ gulp.task("deploy", (done) => {
         .pipe(done());
 });
 
-gulp.task("images", (done) => {
+gulp.task("images", () => {
     return gulp.src("./src/img/**/*")
         .pipe(cache(
             imagemin([
@@ -76,17 +76,17 @@ gulp.task("images", (done) => {
             ])
         ))
         .pipe(gulp.dest("./dist/img"));
-        
+
 });
 
-gulp.task("clean", (done) => {
-    return gulp.src('./dist/**/*', {read: false})
+gulp.task("clean", () => {
+    return gulp.src('./dist/**/*', { read: false })
         .pipe(clean());
 });
 
 gulp.task("build", gulp.series(
     "clean",
-    gulp.parallel("html","scss","js","images")
+    gulp.parallel("html", "scss", "js", "images")
 ));
 
 gulp.task("default", gulp.series("html", "scss", "js", "images", "browser-init", "watch"));
